@@ -1,0 +1,11 @@
+<div class="wrapper">
+    <div class="router-progress-bar" *ngIf="isFetching"></div>
+    <app-default-header class="dashixiong-header"></app-default-header>
+    <app-default-sidebar class="aside"></app-default-sidebar>
+    <section class="main-page-content">
+        <reuse-tab [max]="20"></reuse-tab>
+        <div class="main-content">
+            <router-outlet (activate)='onRouterActivate($event)'></router-outlet>
+        </div>
+    </section>
+</div>

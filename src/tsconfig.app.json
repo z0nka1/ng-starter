@@ -1,0 +1,49 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../out-tsc/app",
+    "module": "es2015",
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "../node_modules/@types"
+    ],
+  },
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ],
+  "paths": {
+    "@shared": [
+      "app/shared"
+    ],
+    "@shared/*": [
+      "app/shared/*"
+    ],
+    "@core": [
+      "app/core/"
+    ],
+    "@core/*": [
+      "app/core/*"
+    ],
+    "@pages": [
+      "app/pages/"
+    ],
+    "@pages/*": [
+      "app/pages/*"
+    ],
+    "@zorro-ext": [
+      "app/zorro-ext/"
+    ],
+    "@zorro-ext/*": [
+      "app/zorro-ext/*"
+    ],
+    "@env": [
+      "environments/"
+    ],
+    "@env/*": [
+      "environments/*"
+    ]
+  }
+}

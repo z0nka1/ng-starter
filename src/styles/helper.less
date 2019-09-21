@@ -1,0 +1,119 @@
+/**
+*  常用公共辅助类放这里
+**/
+.inline-block{
+    display: inline-block;
+}
+
+.bg-gray{
+    background-color: #eee!important;
+}
+
+.cursor-pointer{
+    cursor: pointer;
+}
+
+.word-break {
+    word-break: break-all;
+}
+
+
+// 内外边距
+@numList: 0, 2, 4, 5, 6, 8, 10, 12, 14, 15, 16, 18, 20, 24, 25, 30, 40, 50,70,80, 100, 140;
+.loop(@i) when (@i < (length(@numList) + 1)){
+    @num: extract(@numList, @i);
+    .margin-top-@{num} {
+        margin-top: (1px * @num) !important;
+    }
+    .margin-bottom-@{num} {
+        margin-bottom: (1px * @num) !important;
+    }
+    .margin-left-@{num} {
+        margin-left: (1px * @num) !important;
+    }
+    .margin-right-@{num} {
+        margin-right: (1px * @num) !important;
+    }
+    .margin-@{num} {
+        margin: (1px * @num) !important;
+    }
+    .padding-top-@{num} {
+        padding-top: (1px * @num) !important;
+    }
+    .padding-bottom-@{num} {
+        padding-bottom: (1px * @num) !important;
+    }
+    .padding-left-@{num} {
+        padding-left: (1px * @num) !important;
+    }
+    .padding-right-@{num} {
+        padding-right: (1px * @num) !important;
+    }
+    .padding-@{num} {
+        padding: (1px * @num) !important;
+    }
+    .loop(@i + 1);
+}
+.loop(1);
+
+
+// 定位
+@positionList: static, relative, absolute, fixed, sticky;
+.positionLoop(@i) when (@i < (length(@positionList) + 1)){
+    @pos: extract(@positionList, @i);
+    .pos-@{pos} {
+        position: @pos!important;
+    }
+    .positionLoop(@i + 1);
+}
+.positionLoop(1);
+
+
+// 对齐
+@alignList: left, right, center;
+.alignLoop(@i) when (@i < (length(@alignList) + 1)){
+    @align: extract(@alignList, @i);
+    .align-@{align} {
+        text-align: @align!important;
+    }
+    .alignLoop(@i + 1);
+}
+.alignLoop(1);
+
+
+// 圆角
+@radiusList: 0, 1, 2, 3, 4, 5, 8, 10, 15, 20;
+.radiusLoop(@i) when (@i < (length(@radiusList) + 1)){
+    @radius: extract(@radiusList, @i);
+    .border-radius-@{radius} {
+        border-radius: (1px * @radius) !important;
+    }
+    .radiusLoop(@i + 1);
+}
+.radiusLoop(1);
+
+.border-radius-half{
+    border-radius: 50%;
+}
+// 字体大小
+@sizeList: 12,13,14,16,18,20,24;
+.fontSize(@i) when (@i < (length(@sizeList) + 1)){
+    @size: extract(@sizeList, @i);
+    .font-size-@{size} {
+        font-size : (1px * @size) !important;
+    }
+    .fontSize(@i + 1);
+}
+.fontSize(1);
+
+
+// 清除浮动
+.clear-left{
+    clear: left;
+}
+.clear-right{
+    clear: right;
+}
+.clear-both{
+    clear: both;
+}

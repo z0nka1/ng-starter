@@ -1,0 +1,108 @@
+# GitLab CI/CD 前端 Angular 持续集成实践 : https://github.com/giscafer/front-end-manual/issues/27
+# 因为共享Runner，这里不建议一样的版本号，避免同时运行的时候，相同docker镜像会出问题
+image: node:11.14.0
+# image: node:latest
+
+# 变量定义
+# https://docs.gitlab.com/ee/ci/variables/#using-predefined-environment-variables
+variables:
+  NODE_MODULES_VERSION: 'ng-starter-ulkq1jsro69' # node_modules版本号，每次升级依赖改一下这里的数值
+  CURRENT_BRANCH: $CI_COMMIT_REF_NAME
+
+# 缓存目录文件
+# key是唯一值，重名会覆盖上一次的缓存
+cache:
+  key: '$NODE_MODULES_VERSION'
+  paths:
+    - node_modules/
+
+stages:
+  - init
+  - lint
+  - build
+  # - deploy
+
+install_packages:
+  stage: init
+  cache:
+    key: '$NODE_MODULES_VERSION'
+    paths:
+      - node_modules/
+  script:
+    # 打印一下当前是什么分支而已
+    - echo "NODE_MODULES_VERSION=$NODE_MODULES_VERSION"
+    - echo "CURRENT_BRANCH=$CURRENT_BRANCH"
+    # 设置 npm 的源，会快一些
+    - npm config set registry http://registry.npm.taobao.org/
+    # 安装所有依赖，也就是 node_modules
+    - npm install --silent
+  only:
+    refs:
+      - branches
+    variables:
+      - $CI_PROJECT_NAMESPACE == "front-end"
+
+lint_code:
+  stage: lint
+  # 定义缓存
+  cache:
+    key: '$NODE_MODULES_VERSION'
+    # 下面的配置指示，我们当前只拉取缓存，不上传，这样会节省不少时间
+    policy: pull
+    # 指定要缓存的文件/文件夹
+    paths:
+      - node_modules/
+  script:
+    - npm run lint
+  only:
+    refs:
+      - /^dev.*$/
+    variables:
+      - $CI_PROJECT_NAMESPACE == "front-end"
+
+build:
+  stage: build
+  cache:
+    key: '$NODE_MODULES_VERSION'
+    policy: pull
+    paths:
+      - node_modules/
+  script:
+    - |
+      if [ "$CI_COMMIT_REF_NAME" = ~"test" ]; then
+        npm run aot:test
+      elif [ "$CI_COMMIT_REF_NAME" = "master" ]; then
+        npm run aot:uat
+      elif [ "$CI_COMMIT_REF_NAME" = "prod" ]; then
+        npm run aot:prod
+      fi
+  artifacts:
+    # artifacets 的名字
+    name: '$CI_COMMIT_REF_NAME-dist'
+    # artifacets 的过期时间，因为这些数据都是直接保存在 Gitlab 机器上的，过于久远的资源就可以删除掉了
+    expire_in: 6 hrs
+    # 制定需要打包的目录，这里我把 dist 目录给打包了，准备发布到服务器
+    paths:
+      - dist/
+  only:
+    refs:
+      - /^test.*$/
+      - master
+      - prod
+    variables:
+      - $CI_PROJECT_NAMESPACE == "front-end"
+#
+##  部署任务
+# deploy:
+#   stage: deploy
+#   # 该命令指定只有 master 分支才能够执行当前任务
+#   only:
+#     - master
+#   # 部署脚本，在下面的代码中，我用到了很多类似 ${AMAZON_PEM} 的变量，由于我们的私钥、Ip 都算是不宜公开显示的信息，
+#   # 所以我用到了 Gitlab 的变量工具，在 repo 的 Setting > CI/CD > Secret variables 中，这些变量值只有项目管理员才有权限访问
+#   script:
+#     - 'ls -la'
+#     - 'ls -Rl dist'
+#     - 'echo "${AMAZON_PEM}" > amazon.pem'
+#     - 'chmod 600 amazon.pem'
+#     - 'scp -o StrictHostKeyChecking=no -i amazon.pem -r dist/* ${AMAZON_NAME_IP}:/usr/share/nginx/html/'

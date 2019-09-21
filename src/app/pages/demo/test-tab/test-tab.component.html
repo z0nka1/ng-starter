@@ -1,0 +1,93 @@
+<div class="content-container">
+  <div class="content-header">
+    <div nz-row>
+      <div class="content-title" nz-col nzSpan="2">
+        <p>运营用户</p>
+      </div>
+      <div nz-col nzSpan="20" class="content-search-details">
+        <query-tabs
+          [(queryTabsMap)]="queryTabsMap"
+          (queryChange)="queryChange($event)"
+          (queryTabClose)="queryTabClose($event)"
+        ></query-tabs>
+      </div>
+      <div nz-col nzSpan="2">
+        <button nz-button nzType="primary">新增用户</button>
+      </div>
+    </div>
+    <div>
+      <nz-tabset [(nzSelectedIndex)]="tabSelectedIndex">
+        <nz-tab *ngFor="let item of tabs" [nzTitle]="item.title" (nzClick)="tabToggle(item.value)"></nz-tab>
+      </nz-tabset>
+    </div>
+  </div>
+  <div class="table">
+    <yzt-grid
+      #grid
+      [columns]="columns"
+      [data]="tableData"
+      [title]="titleTpl"
+      [searchTmpl]="[search_mobile, search_createTime, search_sex, search_orderNum, search_clientType]"
+      [selection]="selections"
+      [loading]="loading"
+      (load)="loadData($event)"
+      (selectionChange)="onSelect($event)"
+      (searchConfirm)="updateQueryTabsMap()"
+    >
+      <ng-template #titleTpl>
+        <div class="inline-block margin-right-20">
+          已选中<span
+            style="color:
+                                  orangered"
+          >
+            {{ selections.length }} </span
+          >条数据
+        </div>
+      </ng-template>
+
+      <custom-template [ui_grid]="grid" [outField]="'operate'">
+        <ng-template #customTemplate let-id="id" let-mobile="mobile">
+          <a click.stop>编辑</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a click.stop>重置密码</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a click.stop>转离职</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a click.stop>转在职</a>
+        </ng-template>
+      </custom-template>
+    </yzt-grid>
+
+    <ng-template #search_mobile>
+      <input nz-input [(ngModel)]="queryTabsMap.mobile.value" placeholder="按手机号搜索" (keyup.enter)="onConfirm()" />
+    </ng-template>
+
+    <ng-template #search_createTime>
+      <nz-range-picker [(ngModel)]="queryTabsMap.createTime.value" (nzOnOpenChange)="onDateOpenChange($event)">
+      </nz-range-picker>
+    </ng-template>
+
+    <ng-template #search_orderNum>
+      <nz-input-number [(ngModel)]="queryTabsMap.orderNumMin.value"></nz-input-number>
+      -
+      <nz-input-number [(ngModel)]="queryTabsMap.orderNumMax.value"></nz-input-number>
+    </ng-template>
+
+    <ng-template #search_clientType>
+      <nz-select style="width: 240px;" [(ngModel)]="queryTabsMap.clientType.value" nzAllowClear [nzMode]="'multiple'">
+        <nz-option nzValue="shortfall" nzLabel="短欠"></nz-option>
+        <nz-option nzValue="monthly" nzLabel="月结"></nz-option>
+        <nz-option nzValue="ordinary" nzLabel="普通"></nz-option>
+        <nz-option nzValue="precharge" nzLabel="预充值"></nz-option>
+      </nz-select>
+    </ng-template>
+
+    <ng-template #search_sex>
+      <nz-select nzPlaceHolder="性别" [(ngModel)]="queryTabsMap.sex.value" style="width: 150px">
+        <nz-option nzLabel="全部" nzValue="ALL"></nz-option>
+        <nz-option nzLabel="男" nzValue="MALE"></nz-option>
+        <nz-option nzLabel="女" nzValue="FEMALE"></nz-option>
+      </nz-select>
+    </ng-template>
+  </div>
+</div>

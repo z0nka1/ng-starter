@@ -1,0 +1,81 @@
+<div class="city-select-container">
+    <div class="int-label">
+        <input (click)="inputClick($event)" class="select-input" type="text" [(ngModel)]="_label" readonly
+               [ngStyle]="{'width': _width}" [placeholder]="placeholder">
+        <span
+                (click)="clear($event)"
+                class="ant-select-selection__clear"
+                style="-webkit-user-select: none;"
+                *ngIf="result.length">
+        </span>
+    </div>
+    <div class="select-content" [class.hide]="showBox != true" cdkConnectedOverlay
+         cdkConnectedOverlayHasBackdrop>
+        <div class="selected-panel clearfix" (click)="panelClick($event)">
+            <div class="panel-info">已选 {{result.length}} 个 (最多可选 {{maxNum}} 个地区) <span class="clear" (click)="clear()">清空</span>
+            </div>
+            <ul>
+                <li
+                        *ngFor="let v of result ;trackBy: track;let i = index"
+                        [attr.title]="option?.nzLabel || option?.nzValue"
+                        class="ant-select-selection__choice" style="-webkit-user-select: none;">
+                    <div class="ant-select-selection__choice__content">{{v.name}}</div><!----><span
+                        class="ant-select-selection__choice__remove" (click)="deleteChoice(v, $event)"></span>
+                </li>
+            </ul>
+        </div>
+        <div class="container clearfix">
+            <ul class="province">
+                <ng-container *ngFor="let province of provinceData;let i = index">
+                    <li [class.active]="label._checked"
+                        (click)="selectPro(province, label, $event)">
+                        <label>
+                            <input #label type="checkbox" (click)="checkedPro(province, label , $event)"
+                                   [ngModel]="itemsIsChecked('province',province)">
+                            <i></i>
+                        </label>
+                        <span [style.color]="province.click? 'red' :''">
+                        <ng-container [style.color]="province.click? 'red' :''" *ngIf="!render; else renderContainer">{{ province.name }}</ng-container>
+                        <ng-template #renderContainer [ngTemplateOutlet]="render"
+                                     [ngTemplateOutletContext]="{ $implicit: province }"></ng-template>
+                    </span>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="city" *ngIf="cityData.length !== 0">
+                <ng-container *ngFor="let city of cityData;let i = index">
+                    <li [class.active]="label._checked"
+                        (click)="selectCity(city, label ,$event)">
+                        <label>
+                            <input #label type="checkbox" (click)="checkedCity(city, label , $event)"
+                                   [ngModel]="itemsIsChecked('city',city)">
+                            <i></i>
+                        </label>
+                        <span [style.color]="city.click? 'red' :''">
+                        <ng-container *ngIf="!render; else renderContainer">{{ city.name }}</ng-container>
+                        <ng-template #renderContainer [ngTemplateOutlet]="render"
+                                     [ngTemplateOutletContext]="{ $implicit: city }"></ng-template>
+                    </span>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="district" *ngIf="districtData.length !== 0">
+                <ng-container *ngFor="let district of districtData;let i = index">
+                    <li [class.active]="label._checked"
+                        (click)="selectDistrict(district, label ,$event)">
+                        <label>
+                            <input #label type="checkbox" (click)="checkedDistrict(district, label , $event)"
+                                   [ngModel]="itemsIsChecked('district',district)">
+                            <i></i>
+                        </label>
+                        <span [style.color]="district.click? 'red' :''">
+                        <ng-container *ngIf="!render; else renderContainer">{{ district.name }}</ng-container>
+                        <ng-template #renderContainer [ngTemplateOutlet]="render"
+                                     [ngTemplateOutletContext]="{ $implicit: district }"></ng-template>
+                    </span>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>

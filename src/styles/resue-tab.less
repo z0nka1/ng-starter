@@ -1,0 +1,51 @@
+reuse-tab {
+    display: block;
+    outline: none;
+    user-select: none;
+    span.name {
+        height: 100%;
+        display: inline-block;
+    }
+   .ant-tabs.ant-tabs-card>.ant-tabs-bar {
+        .ant-tabs-tab {
+            .op {
+                color: #1F3A50;
+            }
+        }
+    }
+}
+.ant-tabs-tab {
+    span {
+        font-size: 12px;
+        color: @reuse-tab-unselect;
+    }
+}
+
+.ant-tabs-tab-active {
+    span {
+        color: @reuse-tab-select;
+    }
+}
+
+.ad-nav__selected > a {
+    color: white;
+}
+
+.ad-nav__item > a:hover {
+    color: white;
+}
+.ad-nav__floating {
+    background-color: #393638;
+    .ad-nav__item > a {
+        color: #999999;
+        &:hover{
+            color: white; 
+        }
+    }
+    .ad-nav__selected {
+        background-color: #393638;
+        > a {
+            color: white;
+        }
+    }
+}

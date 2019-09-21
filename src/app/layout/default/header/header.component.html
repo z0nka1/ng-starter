@@ -1,0 +1,20 @@
+<nz-header class="dashixiong-header">
+    <div class="logo">
+        <a href="/" title="{{settings.app.name}}">
+            <img class="expanded" src="./assets/img/logo.png" alt="{{settings.app.name}}" />
+            <img class="collapsed" src="./assets/img/logo-sm.png" alt="{{settings.app.name}}" />
+        </a>
+    </div>
+    <div class="top-nav-wrap">
+        <ul class="top-nav">
+            <li>
+                <div class="item" (click)="toggleCollapsedSidebar()" style="color:#0B2840 !important;">
+                    <i nz-icon type="menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}" theme="outline"></i>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="user-block">
+        <header-user class="left"></header-user>
+    </div>
+</nz-header>

@@ -1,0 +1,50 @@
+<div class="city-select-container">
+    <div class="select-content" [class.hide]="showBox != true" cdkConnectedOverlay cdkConnectedOverlayHasBackdrop>
+        <div class="container clearfix" [style.height] = "height">
+            <ul class="province">
+                <ng-container *ngFor="let province of provinceData;let i = index">
+                    <li [class.active]="label._checked" (click)="selectPro(province, label, $event)">
+                        <label>
+                            <input nz-input #label type="checkbox" [disabled]="itemsIsDisabled('province',province)"
+                                (click)="checkedPro(province, label , $event)" [ngModel]="itemsIsChecked('province',province)">
+                            <i></i>
+                        </label>
+                        <span class="text-over-flow" [ngClass] ="itemsIsDisabled('province',province)?'': province.click? 'select-color':''">
+                            <ng-container *ngIf="!render; else renderContainer">{{
+                                province.name }}</ng-container>
+                            <ng-template #renderContainer [ngTemplateOutlet]="render" [ngTemplateOutletContext]="{ $implicit: province }"></ng-template>
+                        </span>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="city" *ngIf="cityData.length !== 0">
+                <ng-container *ngFor="let city of cityData;let i = index">
+                    <li [class.active]="label._checked" (click)="selectCity(city, label ,$event)">
+                        <label>
+                            <input #label type="checkbox" [disabled]="itemsIsDisabled('city',city)" (click)="checkedCity(city, label , $event)" [ngModel]="itemsIsChecked('city',city)">
+                            <i></i>
+                        </label>
+                        <span class="text-over-flow" [ngClass] ="itemsIsDisabled('city',city)?'': city.click?'select-color':''">
+                            <ng-container *ngIf="!render; else renderContainer">{{ city.name }}</ng-container>
+                            <ng-template #renderContainer [ngTemplateOutlet]="render" [ngTemplateOutletContext]="{ $implicit: city }"></ng-template>
+                        </span>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul class="district" *ngIf="districtData.length !== 0">
+                <ng-container *ngFor="let district of districtData;let i = index">
+                    <li [class.active]="label._checked" (click)="selectDistrict(district, label ,$event)">
+                        <label>
+                            <input #label type="checkbox" [disabled]="itemsIsDisabled('district',district)" (click)="checkedDistrict(district, label , $event)" [ngModel]="itemsIsChecked('district',district)">
+                            <i></i>
+                        </label>
+                        <span class="text-over-flow" [ngClass] ="itemsIsDisabled('district',district)?'': district.click?'select-color':''">
+                            <ng-container *ngIf="!render; else renderContainer">{{ district.name }}</ng-container>
+                            <ng-template #renderContainer [ngTemplateOutlet]="render" [ngTemplateOutletContext]="{ $implicit: district }"></ng-template>
+                        </span>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>

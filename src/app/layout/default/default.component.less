@@ -1,0 +1,90 @@
+:host ::ng-deep .dashixiong-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 0 16px;
+    width: 100%;
+    height: 64px;
+    background-color: #FFFFFF;
+    color: #1B364D;
+    border-bottom: 1px solid#F0F0F0;
+    z-index: 19;
+    .logo {
+        margin-left: -17px;
+        width: 200px;
+        background-color: #393638;
+        border-bottom: 1px solid#393638;
+        -webkit-transition: width .2s cubic-bezier(.25, 0, .15, 1);
+        transition: width .2s cubic-bezier(.25, 0, .15, 1);
+        a {
+            display: block;
+            text-align: center
+        }
+        img {
+            vertical-align: middle;
+            max-width: 100%;
+            -webkit-animation: 1s fadeIn;
+            animation: 1s fadeIn
+        }
+        img.collapsed {
+            display: none
+        }
+        img.expanded {
+            display: inline;
+            margin-left: -20px;
+        }
+    }
+}
+
+:host ::ng-deep .top-nav-wrap {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    height: 100%;
+    ul.top-nav {
+        line-height: 47px;
+        &>li {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 5px;
+        }
+        .item {
+            display: block;
+            color: #fff!important;
+            border-radius: 2px;
+            text-align: center;
+            padding: 8px 15px;
+            min-width: 50px;
+            -webkit-transition: background-color .3s;
+            transition: background-color .3s;
+            cursor: pointer;
+            outline: 0;
+            font-size: 17px;
+            &:hover {
+                background-color: rgba(255, 255, 255, .2)!important
+            }
+            i {
+                font-size: 18px;
+                line-height: 100%
+            }
+        }
+        .nav-item-selected {
+            background: #0C1359;
+            .item {
+                // color: #EE7F25 !important;
+            }
+        }
+    }
+}

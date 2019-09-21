@@ -1,0 +1,34 @@
+<nz-tabset nzType="card">
+  <ng-container *ngFor="let tab of (queryTabsMap | queryTabsMapPipe: exceptRule)">
+    <nz-tab [nzTitle]="titleTemplate">
+      <ng-template #titleTemplate>
+        <div class="flex">
+          <ng-container *ngIf="(tab.value | translate: tab.lexicon || lexicon)?.length > 10; else elseTextBlock">
+            <div nz-popover nzTrigger="hover" [nzContent]="nzTemplate" nzPlacement="bottom">
+              <span class="label">{{ tab.label + '：' }}</span>
+              <span class="value text-ellipsis">{{ tab.value | translate: tab.lexicon || lexicon }}</span>
+            </div>
+
+            <ng-template #nzTemplate>
+              <div>
+                <span class="label">{{ tab.label + '：' }}</span>
+                <span class="value">{{ tab.value | translate: tab.lexicon || lexicon }}</span>
+              </div>
+            </ng-template>
+          </ng-container>
+
+          <ng-template #elseTextBlock>
+            <div>
+              <span class="label">{{ tab.label + '：' }}</span>
+              <span class="value">{{ tab.value | translate: tab.lexicon || lexicon }}</span>
+            </div>
+          </ng-template>
+
+          <div>
+            <i nz-icon type="close" class="ant-tabs-close-x" (click)="closeTab(tab)"></i>
+          </div>
+        </div>
+      </ng-template>
+    </nz-tab>
+  </ng-container>
+</nz-tabset>

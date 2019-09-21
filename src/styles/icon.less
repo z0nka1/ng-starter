@@ -1,0 +1,33 @@
+/*菜单图标*/
+
+@icon-array: shang-pin;
+.icon-fun(@index) when (@index < length(@icon-array) + 1) {
+    @name: extract(@icon-array, @index);
+    .icon-@{name} {
+        background: url("/assets/img/icons/icon-@{name}.png") no-repeat;
+        background-size: contain;
+        width: 16px;
+        height: 16px;
+    }
+    .ad-nav__selected {
+        .icon-@{name} {
+            background: url("/assets/img/icons/icon-@{name}-h.png") no-repeat center center;
+            background-size: contain;
+            width: 16px;
+            height: 16px;
+        }
+    }
+    .icon-fun(@index + 1);
+}
+
+.icon-fun(1);
+
+.aside-collapsed .ad-nav:not(.ad-nav__sub) .ad-nav__item {
+    a{
+        padding: 20px 0;
+    }
+    .icon{
+        width: 16px;
+        height: 16px;
+    }
+}

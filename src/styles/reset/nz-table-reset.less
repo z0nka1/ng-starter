@@ -1,0 +1,54 @@
+.ant-table-tbody > tr > td {
+    border: none !important;
+}
+nz-table:not(.no-border) {
+    .ant-table-thead > tr > th {
+        border-right: 1px solid #e8e8e8 !important;
+    }
+
+    .ant-table-tbody > tr > td:last-child{
+        border-right: 1px solid #e8e8e8 !important;
+    }
+    .ant-table-tbody > tr {
+        &:last-child{
+            border-bottom: 1px solid #e8e8e8 !important;
+        }
+    }
+}
+
+.ant-table-thead > tr > th.no-frozen{
+    position: relative !important;
+}
+
+nz-table .ant-table-thead > tr > th,
+nz-table:not(.no-stripe) .ant-table-tbody > tr:nth-child(even) {
+    background-color: #F4F7F9;
+    .ant-table-td-left-sticky, .ant-table-td-right-sticky {
+        background: #F4F7F9;
+    }
+}
+
+
+.ant-table-tbody > tr.selected {
+    background-color: #f0f5ff !important;
+    .ant-table-td-left-sticky, .ant-table-td-right-sticky {
+        background: #f0f5ff !important;
+    }
+}
+
+.ant-table-tbody .ant-table-row {
+    &:hover {
+        .ant-table-td-left-sticky, .ant-table-td-right-sticky {
+            background: #f0f5ff !important;
+        }
+    }
+}
+.ant-table-thead > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+.ant-table-tbody > tr.ant-table-row-hover:not(.ant-table-expanded-row) > td,
+.ant-table-thead > tr:hover:not(.ant-table-expanded-row) > td,
+.ant-table-tbody > tr:hover:not(.ant-table-expanded-row) > td {
+    background: #f0f5ff;
+}
+.ant-table-footer {
+    padding: 15px 8px !important; 
+}

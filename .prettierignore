@@ -1,0 +1,6 @@
+# **/*.md
+**/*.svg
+**/test.ts
+**/*.less
+coverage/
+package.json

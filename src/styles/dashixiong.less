@@ -1,0 +1,40 @@
+@asider-bg-color: #2E2B2D;
+@asider-seleted-bg-color: #393638;
+.aside-inner {
+    background-color: @asider-bg-color  !important;
+    overflow-y: auto!important;
+    .ad-nav__item{
+        border-left: 0px;
+        >a {
+            font-size: 13px;
+            line-height: 24px;
+            color: #999999;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            background-color: @asider-bg-color;
+            text-decoration: none;
+            >i {
+                margin-right: 17px;
+                vertical-align: sub;
+            }
+        }
+    }
+    .ad-nav__selected {
+        border-left: 0px;
+        >a {
+            color: white;
+        }
+    }
+   
+    .ad-nav__open{
+        >a {
+            background-color: @asider-bg-color;
+        }
+        .ad-nav__item{
+            >a {
+                background-color:  @asider-seleted-bg-color;
+                padding-left: 49px;
+            }
+        }
+    }
+}

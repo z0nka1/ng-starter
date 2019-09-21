@@ -1,0 +1,19 @@
+<div class="card-container">
+    <nz-tabset [nzSelectedIndex]="pos" [nzAnimated]="false" nzType="card" [nzTabBarExtraContent]="opsContent">
+        <nz-tab *ngFor="let i of list; let index = index" [nzTitle]="titleTemplate">
+            <ng-template #titleTemplate>
+                <i nz-icon [type]="'reload'" [spin]="_isRefreshSpin" *ngIf="pos===index" (click)="_refresh($event,index)"></i>
+                <span style="display: inline-block;" [context-menu]="i" (click)="to($event, index)" class="name inline-b">{{i.title}}</span>
+                <i *ngIf="i.closable" class="anticon anticon-close-circle op" (click)="_close($event, index, false)"></i>
+            </ng-template>
+        </nz-tab>
+        <ng-template #opsContent>
+            <nz-popconfirm *ngIf="allowClose && srv.count" [nzTitle]="'确定清空吗？'" (nzOnConfirm)="cmChange({type:'closeOther'})">
+                <button nz-popconfirm nz-button [nzType]="'dashed'" [nzShape]="'circle'">
+                            <i class="anticon anticon-delete"></i>
+                        </button>
+            </nz-popconfirm>
+        </ng-template>
+    </nz-tabset>
+    <reuse-tab-context [i18n]="i18n" (change)="cmChange($event)"></reuse-tab-context>
+</div>
